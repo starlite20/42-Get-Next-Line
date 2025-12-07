@@ -6,11 +6,21 @@
 /*   By: ssujaude <ssujaude@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:17:51 by ssujaude          #+#    #+#             */
-/*   Updated: 2025/12/06 18:27:57 by ssujaude         ###   ########.fr       */
+/*   Updated: 2025/12/07 16:53:31 by ssujaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	len;
+
+	len = 0;
+	while (str[len])
+		len++;
+	return (len);
+}
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
@@ -30,4 +40,54 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	while(i < actual_size)
 		*(c_ptr + i++) = 0;
 	return (ptr);
+}
+
+
+char	*ft_strdup(const char *s)
+{
+	char	*ptr;
+	int		i;
+	int		len;
+
+	if (!s)
+		return (NULL);
+	len = ft_strlen(s);
+	ptr = (char *)malloc(sizeof(char) * (len + 1));
+	if (!ptr)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		*(ptr + i) = *(s + i);
+		i++;
+	}
+	*(ptr + i) = '\0';
+	return (ptr);
+}
+
+
+char	*ft_strjoin_and_free(char *s1, char *s2)
+{
+	char			*concatenated;
+	unsigned int	s1_len;
+	unsigned int	s2_len;
+	unsigned int	i;
+	unsigned int	si;
+
+	if (!s1 || !s2)
+		return (NULL);
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	concatenated = malloc(sizeof(char) * (s1_len + s2_len + 1));
+	if (!concatenated)
+		return (NULL);
+	i = 0;
+	si = 0;
+	while (si < (s1_len))
+		*(concatenated + i++) = *(s1 + si++);
+	si = 0;
+	while (si < (s2_len))
+		*(concatenated + i++) = *(s2 + si++);
+	*(concatenated + i) = '\0';
+	return (concatenated);
 }
