@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssujaude <ssujaude@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssujaude <ssujaude@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:17:55 by ssujaude          #+#    #+#             */
-/*   Updated: 2025/12/07 16:53:39 by ssujaude         ###   ########.fr       */
+/*   Updated: 2025/12/07 23:09:31 by ssujaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
+
+//check
+# include <stdint.h>
 
 
 
