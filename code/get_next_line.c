@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssujaude <ssujaude@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssujaude <ssujaude@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:17:45 by ssujaude          #+#    #+#             */
-/*   Updated: 2025/12/07 17:02:18 by ssujaude         ###   ########.fr       */
+/*   Updated: 2025/12/09 00:36:27 by ssujaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,61 +44,35 @@ int has_line_termination(char *text_loaded, int len)
 }
 
 
-char *process_next_line(char *buffer_stash, int fd)
-{
-	char *active_line;
-	int bytes_read;
-	int flag_terminator;
-
-	//printf("\n\n\t\t==> gnlp : [[%s]]", buffer_stash);
-
-	bytes_read = read(fd, buffer_stash, BUFFER_SIZE);
-
-	if(bytes_read <= 0)
-	{	
-		free(buffer_stash);
-		return (NULL);
-	}
-
-	printf("\n\tS=>[%s]",buffer_stash);
-	active_line = ft_strjoin_and_free(active_line, "");
-
-	//verify if \n or \0 is present inside the read data.
-	// if(has_line_termination(buffer_stash, bytes_read))
-	// 	printf("\n\n\t\t==> this has line terminator");
-	flag_terminator = has_line_termination(buffer_stash, bytes_read);
-	while (flag_terminator == -1)
-	{
-		bytes_read = read(fd, buffer_stash, BUFFER_SIZE);
-		if(bytes_read <= 0)
-		{	
-			free(buffer_stash);
-			return (NULL);
-		}
-		active_line = ft_strjoin_and_free(active_line, buffer_stash);
-		flag_terminator = has_line_termination(buffer_stash, bytes_read);
-	}	
-
-	return(active_line);
-}
-
-
 char *get_next_line(int fd)
 {
-	static char *buffer_stash;
-	char *active_line;
+	//stash for the entire fd data read
+	static char *fd_data;
+
+	char *temp_reader;
 	int bytes_read;
+	int line_terminator;
 
 	if(fd == -1)
 		return (NULL);
 
-	buffer_stash = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	if(!buffer_stash)
+	temp_reader = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if(!temp_reader)
 		return (NULL);
 
-	active_line = process_next_line(buffer_stash, fd);
-	
-	return(active_line);
+	bytes_read = read(fd, temp_reader, BUFFER_SIZE);
+	if(bytes_read >= 0)
+		fd_data = ft_strjoin(fd_data, temp_reader);
+
+	line_terminator = has_line_termination(fd_data, ft_strlen(fd_data));
+	while(line_terminator == -1)
+	{
+		
+		bytes_read = read(fd, temp_reader, BUFFER_SIZE);
+		line_terminator = has_line_termination(temp_reader, bytes_read);
+	}
+	free(temp_reader);
+	return(fd_data);
 }
 
 int main()

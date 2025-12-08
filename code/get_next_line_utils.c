@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssujaude <ssujaude@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssujaude <ssujaude@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:17:51 by ssujaude          #+#    #+#             */
-/*   Updated: 2025/12/07 16:53:31 by ssujaude         ###   ########.fr       */
+/*   Updated: 2025/12/09 00:35:40 by ssujaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 size_t	ft_strlen(const char *str)
 {
 	size_t	len;
+
+	if(!str)
+		return(0);
 
 	len = 0;
 	while (str[len])
@@ -66,7 +69,7 @@ char	*ft_strdup(const char *s)
 }
 
 
-char	*ft_strjoin_and_free(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char			*concatenated;
 	unsigned int	s1_len;
@@ -74,7 +77,7 @@ char	*ft_strjoin_and_free(char *s1, char *s2)
 	unsigned int	i;
 	unsigned int	si;
 
-	if (!s1 || !s2)
+	if (!s1 && !s2)
 		return (NULL);
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
