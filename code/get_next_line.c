@@ -6,7 +6,7 @@
 /*   By: ssujaude <ssujaude@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:17:45 by ssujaude          #+#    #+#             */
-/*   Updated: 2025/12/17 00:37:15 by ssujaude         ###   ########.fr       */
+/*   Updated: 2025/12/17 02:06:18 by ssujaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 char *refine_line(char *old_stashed_data, char **full_line, int old_stash_len)
 {
 	char *new_stashed_data;
-	int i;
 	int line_length;
 	char *terminator_point;
 
@@ -103,13 +102,14 @@ int main()
 	int fd;
 	char *line_read = "";
 
-	fd = open("longtext.txt", O_RDONLY);
+	fd = open("only_nl.txt", O_RDONLY);
 	printf("\n== > file descriptor id : %d\n*****************\n\n", fd);
 
 	if(fd == -1)
 		return (0);
-	while(line_read = get_next_line(fd))
+	while(line_read)
 	{
+		line_read = get_next_line(fd);
 		if(line_read)
 		{
 			printf("\n ##MAIN## \t\t LINE FOUND - [%s] -\n", line_read);

@@ -6,7 +6,7 @@
 /*   By: ssujaude <ssujaude@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:17:51 by ssujaude          #+#    #+#             */
-/*   Updated: 2025/12/16 21:11:46 by ssujaude         ###   ########.fr       */
+/*   Updated: 2025/12/17 00:41:15 by ssujaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	void	*ptr;
 	size_t	actual_size;
 	unsigned char	*c_ptr;
-	int i;
+	size_t i;
 
 	if ((size > 0 && (nmemb > (SIZE_MAX / size))))
 		return (NULL);
