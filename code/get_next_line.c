@@ -6,7 +6,7 @@
 /*   By: ssujaude <ssujaude@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:17:45 by ssujaude          #+#    #+#             */
-/*   Updated: 2025/12/17 00:31:17 by ssujaude         ###   ########.fr       */
+/*   Updated: 2025/12/17 00:37:15 by ssujaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char *get_next_line(int fd)
 	int bytes_read;
 	int stash_len;
 
+	line_read = NULL;
+
 	if(fd == -1)
 		return (NULL);
 
@@ -66,11 +68,11 @@ char *get_next_line(int fd)
 	if(!temp_reader)
 		return (NULL);
 
-	printf("\n\n## gnl stashed is [%s] ##\n", stashed_data);
+	// printf("\n\n## gnl stashed is [%s] ##\n", stashed_data);
 
 	while(!ft_strchr(stashed_data, '\n'))
 	{
-		printf("\n \t ==> gnl looping : [%s]", stashed_data);
+		// printf("\n \t ==> gnl looping : [%s]", stashed_data);
 		bytes_read = read(fd, temp_reader, BUFFER_SIZE);
 		if(bytes_read <= 0)
 			break;
@@ -78,21 +80,13 @@ char *get_next_line(int fd)
 		temp_reader[bytes_read] = '\0';
 		stashed_data = ft_str_join_and_free(stashed_data, temp_reader);
 	}
-	if(ft_strchr(stashed_data, '\n'))
+	if(stashed_data)
 	{
 		stash_len = ft_strlen(stashed_data);
 
-		printf("\n gnl  BEFR REFINE ==> %s ", stashed_data);
+		// printf("\n gnl  BEFR REFINE ==> %s ", stashed_data);
 		stashed_data = refine_line(stashed_data, &line_read, stash_len);
-		printf("\n gnl  AFTR REFINE ==> %s ", stashed_data);
-	}
-	else
-	{
-		stash_len = ft_strlen(stashed_data);
-
-		printf("\n gnl  BEFR REFINE ==> %s ", stashed_data);
-		stashed_data = refine_line(stashed_data, &line_read, stash_len);
-		printf("\n gnl  AFTR REFINE ==> %s ", stashed_data);
+		// printf("\n gnl  AFTR REFINE ==> %s ", stashed_data);
 	}
 	
 	free(temp_reader);
@@ -109,7 +103,7 @@ int main()
 	int fd;
 	char *line_read = "";
 
-	fd = open("text.txt", O_RDONLY);
+	fd = open("longtext.txt", O_RDONLY);
 	printf("\n== > file descriptor id : %d\n*****************\n\n", fd);
 
 	if(fd == -1)
@@ -117,8 +111,10 @@ int main()
 	while(line_read = get_next_line(fd))
 	{
 		if(line_read)
+		{
 			printf("\n ##MAIN## \t\t LINE FOUND - [%s] -\n", line_read);
-		free(line_read);
+			free(line_read);
+		}
 	}
 
 	close(fd);
