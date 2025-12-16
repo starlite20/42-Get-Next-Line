@@ -6,7 +6,7 @@
 /*   By: ssujaude <ssujaude@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:17:45 by ssujaude          #+#    #+#             */
-/*   Updated: 2025/12/16 22:05:30 by ssujaude         ###   ########.fr       */
+/*   Updated: 2025/12/17 00:31:17 by ssujaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,22 @@ char *refine_line(char *old_stashed_data, char **full_line, int old_stash_len)
 		terminator_point = ft_strchr(old_stashed_data, '\n');
 		// if no \n... indicating \0 EOF existance
 		if(!terminator_point)
+		{
 			line_length = old_stash_len;
+			*full_line = ft_strdup_len(old_stashed_data, line_length + 1);
+			//new_stashed_data = ft_strdup_len(old_stashed_data, (old_stash_len - line_length + 1));
+			free(old_stashed_data);
+			new_stashed_data = NULL;
+			return (new_stashed_data);
+		}
 		else
+		{
 			line_length = terminator_point - old_stashed_data;
-		*full_line = ft_strdup_len(old_stashed_data, line_length + 1);
-		new_stashed_data = ft_strdup_len(terminator_point + 1, (old_stash_len - line_length + 1));
-		free(old_stashed_data);
-		return (new_stashed_data);
+			*full_line = ft_strdup_len(old_stashed_data, line_length + 1);
+			new_stashed_data = ft_strdup_len(terminator_point + 1, (old_stash_len - (line_length + 1)));
+			free(old_stashed_data);
+			return (new_stashed_data);
+		}
 	}
 	return(NULL);
 }
@@ -69,7 +78,15 @@ char *get_next_line(int fd)
 		temp_reader[bytes_read] = '\0';
 		stashed_data = ft_str_join_and_free(stashed_data, temp_reader);
 	}
-	if(stashed_data)
+	if(ft_strchr(stashed_data, '\n'))
+	{
+		stash_len = ft_strlen(stashed_data);
+
+		printf("\n gnl  BEFR REFINE ==> %s ", stashed_data);
+		stashed_data = refine_line(stashed_data, &line_read, stash_len);
+		printf("\n gnl  AFTR REFINE ==> %s ", stashed_data);
+	}
+	else
 	{
 		stash_len = ft_strlen(stashed_data);
 
@@ -97,9 +114,8 @@ int main()
 
 	if(fd == -1)
 		return (0);
-	while(line_read)
+	while(line_read = get_next_line(fd))
 	{
-		line_read = get_next_line(fd);
 		if(line_read)
 			printf("\n ##MAIN## \t\t LINE FOUND - [%s] -\n", line_read);
 		free(line_read);
