@@ -6,7 +6,7 @@
 /*   By: ssujaude <ssujaude@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:17:45 by ssujaude          #+#    #+#             */
-/*   Updated: 2025/12/09 00:36:27 by ssujaude         ###   ########.fr       */
+/*   Updated: 2025/12/16 19:48:49 by ssujaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,10 @@ int has_line_termination(char *text_loaded, int len)
 
 char *get_next_line(int fd)
 {
-	//stash for the entire fd data read
-	static char *fd_data;
+	//stash for the entire data read
+	static char *stashed_data;
+
+	char *line_read;
 
 	char *temp_reader;
 	int bytes_read;
@@ -60,19 +62,23 @@ char *get_next_line(int fd)
 	if(!temp_reader)
 		return (NULL);
 
-	bytes_read = read(fd, temp_reader, BUFFER_SIZE);
-	if(bytes_read >= 0)
-		fd_data = ft_strjoin(fd_data, temp_reader);
 
-	line_terminator = has_line_termination(fd_data, ft_strlen(fd_data));
+	line_terminator = -1;
 	while(line_terminator == -1)
 	{
-		
 		bytes_read = read(fd, temp_reader, BUFFER_SIZE);
-		line_terminator = has_line_termination(temp_reader, bytes_read);
+		temp_reader[bytes_read] = '\0';
+		if(bytes_read >= 0)
+		{
+			line_terminator = has_line_termination(temp_reader, bytes_read);
+			stashed_data = ft_strjoin(stashed_data, temp_reader);
+		}
+		else
+			break;
+		
 	}
 	free(temp_reader);
-	return(fd_data);
+	return(stashed_data);
 }
 
 int main()

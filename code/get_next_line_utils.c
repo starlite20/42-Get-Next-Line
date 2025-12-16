@@ -6,7 +6,7 @@
 /*   By: ssujaude <ssujaude@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:17:51 by ssujaude          #+#    #+#             */
-/*   Updated: 2025/12/09 00:35:40 by ssujaude         ###   ########.fr       */
+/*   Updated: 2025/12/13 19:07:58 by ssujaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (si < (s2_len))
 		*(concatenated + i++) = *(s2 + si++);
 	*(concatenated + i) = '\0';
+	free(s1);
 	return (concatenated);
 }
