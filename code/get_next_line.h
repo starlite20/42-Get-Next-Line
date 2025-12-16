@@ -6,7 +6,7 @@
 /*   By: ssujaude <ssujaude@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:17:55 by ssujaude          #+#    #+#             */
-/*   Updated: 2025/12/09 00:27:59 by ssujaude         ###   ########.fr       */
+/*   Updated: 2025/12/16 20:42:45 by ssujaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@
 
 
 void	*ft_calloc(size_t nmemb, size_t size);
-char	*ft_strjoin(char *s1, char *s2);
+char	*ft_str_join_and_free(char *s1, char *s2);
 size_t	ft_strlen(const char *str);
-char	*ft_strdup(const char *s);
+char	*ft_strdup_len(const char *s, int copy_len);
+char	*ft_strchr(const char *s, int c);
 
 
 #endif

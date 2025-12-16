@@ -6,7 +6,7 @@
 /*   By: ssujaude <ssujaude@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:17:45 by ssujaude          #+#    #+#             */
-/*   Updated: 2025/12/16 19:48:49 by ssujaude         ###   ########.fr       */
+/*   Updated: 2025/12/16 21:22:24 by ssujaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,22 @@
 
 
 
-// char *check_linebreak(char *read_so_far)
-// {
-// 	int i;
 
-// 	i = 0;
-// 	while(r(read_so_far[i]!='\n') && (read_so_far[i]!='\0'))
-// 		i++;
-	
-// }
-
-
-
-
-
-
-int has_line_termination(char *text_loaded, int len)
+char *refine_line(char *old_stashed_data, char **full_line)
 {
+	char *new_stashed_data;
 	int i;
+	int line_length;
 
-	i=0;
-	while(i < len)
+	line_length = ft_strchr(old_stashed_data, '\n') - old_stashed_data;
+	if(line_length > 0)
 	{
-		if((text_loaded[i] == '\n') || (text_loaded[i] == '\0'))
-			return(i);
-		i++;
+		*full_line = ft_strdup_len(old_stashed_data, line_length + 1);
+		new_stashed_data = ft_strdup_len(ft_strchr(old_stashed_data, '\n') + 1, ft_strlen(old_stashed_data));
+		free(old_stashed_data);
+		return (new_stashed_data);
 	}
-	return (-1);
+	return(NULL);
 }
 
 
@@ -53,7 +42,6 @@ char *get_next_line(int fd)
 
 	char *temp_reader;
 	int bytes_read;
-	int line_terminator;
 
 	if(fd == -1)
 		return (NULL);
@@ -62,23 +50,26 @@ char *get_next_line(int fd)
 	if(!temp_reader)
 		return (NULL);
 
+	printf("\n\n## gnl stashed is [%s] ##\n", stashed_data);
 
-	line_terminator = -1;
-	while(line_terminator == -1)
+	while(!ft_strchr(stashed_data, '\n'))
 	{
 		bytes_read = read(fd, temp_reader, BUFFER_SIZE);
-		temp_reader[bytes_read] = '\0';
-		if(bytes_read >= 0)
-		{
-			line_terminator = has_line_termination(temp_reader, bytes_read);
-			stashed_data = ft_strjoin(stashed_data, temp_reader);
-		}
-		else
+		if(bytes_read <= 0)
 			break;
-		
+
+		temp_reader[bytes_read] = '\0';
+		stashed_data = ft_str_join_and_free(stashed_data, temp_reader);
 	}
+	if(stashed_data)
+	{
+		printf("\n gnl  BEFR REFINE ==> %s ", stashed_data);
+		stashed_data = refine_line(stashed_data, &line_read);
+		printf("\n gnl  AFTR REFINE ==> %s ", stashed_data);
+	}
+	
 	free(temp_reader);
-	return(stashed_data);
+	return(line_read);
 }
 
 int main()
