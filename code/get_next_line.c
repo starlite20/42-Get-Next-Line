@@ -6,7 +6,7 @@
 /*   By: ssujaude <ssujaude@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:17:45 by ssujaude          #+#    #+#             */
-/*   Updated: 2025/12/17 19:36:06 by ssujaude         ###   ########.fr       */
+/*   Updated: 2025/12/17 22:33:37 by ssujaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,19 @@ char *refine_line(char *old_stashed_data, char **full_line, int old_stash_len)
 
 	if(old_stashed_data)
 	{
+		if(!old_stashed_data[0])
+		{
+			free(old_stashed_data);
+			*full_line = NULL;
+			return(NULL);
+		}
 		terminator_point = ft_strchr(old_stashed_data, '\n');
 		// if no \n... indicating \0 EOF existance
 		if(!terminator_point)
 		{
 			line_length = old_stash_len;
-			*full_line = ft_strdup_len(old_stashed_data, line_length + 1);
+			// *full_line = NULL;
+			*full_line = ft_strdup_len(old_stashed_data, line_length);
 			//new_stashed_data = ft_strdup_len(old_stashed_data, (old_stash_len - line_length + 1));
 			free(old_stashed_data);
 			new_stashed_data = NULL;
@@ -60,7 +67,7 @@ char *get_next_line(int fd)
 
 	line_read = NULL;
 
-	if(fd == -1)
+	if((fd < 0) || (BUFFER_SIZE <= 0))
 		return (NULL);
 
 	temp_reader = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
@@ -87,7 +94,12 @@ char *get_next_line(int fd)
 		stashed_data = refine_line(stashed_data, &line_read, stash_len);
 		// printf("\n gnl  AFTR REFINE ==> %s ", stashed_data);
 	}
-	
+	if(bytes_read == -1)
+	{
+		free(stashed_data);
+		stashed_data = NULL;
+		line_read = NULL;
+	}	
 	free(temp_reader);
 	return(line_read);
 }
