@@ -20,29 +20,33 @@ int main()
 {
 	int fd;
 	char *line_read = "";
+	int ctr;
 
-	fd = open("only_nl.txt", O_RDONLY);
+	ctr = 0;
+	fd = open("big_line_with_nl", O_RDONLY);
 	printf("\n== > file descriptor id : %d\n*****************\n\n", fd);
 
 	if(fd == -1)
 		return (0);
 	while(line_read)
 	{
+
 		line_read = get_next_line(fd);
 		if(line_read)
 		{
-			if(ft_strncmp(line_read, "\n", ft_strlen(line_read)) == 0)
-				printf("\n passed slash n case");
-			else if(line_read == NULL)
-				printf("\n passed NULL");
-			else 			
-				printf("\n ##MAIN## \t\t LINE FOUND - [%s] -\n", line_read);
+			// if(ft_strncmp(line_read, "\n", ft_strlen(line_read)) == 0)
+			// 	printf("\n passed slash n case");
+			// else if(line_read == NULL)
+			// 	printf("\n passed NULL");
+			// else 			
+					ctr++;
+				printf("\n ##[%s]", line_read);
 			free(line_read);
 		}
 	}
 
 	close(fd);
 
-	printf("\n \n== > file closed");
+	printf("\n \n== > file closed : lines read %d", ctr);
 	return(0);
 }

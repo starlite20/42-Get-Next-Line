@@ -6,7 +6,7 @@
 /*   By: ssujaude <ssujaude@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:17:51 by ssujaude          #+#    #+#             */
-/*   Updated: 2025/12/17 00:41:15 by ssujaude         ###   ########.fr       */
+/*   Updated: 2025/12/18 00:29:33 by ssujaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,10 @@ char	*ft_str_join_and_free(char *s1, char *s2)
 	s2_len = ft_strlen(s2);
 	concatenated = malloc(sizeof(char) * (s1_len + s2_len + 1));
 	if (!concatenated)
+	{
+		free(s1);
 		return (NULL);
+	}
 	i = 0;
 	si = 0;
 	while (si < (s1_len))
