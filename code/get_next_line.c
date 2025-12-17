@@ -6,7 +6,7 @@
 /*   By: ssujaude <ssujaude@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:17:45 by ssujaude          #+#    #+#             */
-/*   Updated: 2025/12/18 00:29:04 by ssujaude         ###   ########.fr       */
+/*   Updated: 2025/12/18 00:34:55 by ssujaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char *get_next_line(int fd)
 
 	while(!ft_strchr(stashed_data, '\n'))
 	{
-		printf("\n \t ==> gnl looping : [%s]", stashed_data);
+		//printf("\n \t ==> gnl looping : [%s]", stashed_data);
 		bytes_read = read(fd, temp_reader, BUFFER_SIZE);
 		if(bytes_read <= 0)
 			break;
