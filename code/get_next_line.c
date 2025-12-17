@@ -6,7 +6,7 @@
 /*   By: ssujaude <ssujaude@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:17:45 by ssujaude          #+#    #+#             */
-/*   Updated: 2025/12/17 02:06:18 by ssujaude         ###   ########.fr       */
+/*   Updated: 2025/12/17 19:36:06 by ssujaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,35 +90,4 @@ char *get_next_line(int fd)
 	
 	free(temp_reader);
 	return(line_read);
-}
-
-
-
-
-
-
-int main()
-{
-	int fd;
-	char *line_read = "";
-
-	fd = open("only_nl.txt", O_RDONLY);
-	printf("\n== > file descriptor id : %d\n*****************\n\n", fd);
-
-	if(fd == -1)
-		return (0);
-	while(line_read)
-	{
-		line_read = get_next_line(fd);
-		if(line_read)
-		{
-			printf("\n ##MAIN## \t\t LINE FOUND - [%s] -\n", line_read);
-			free(line_read);
-		}
-	}
-
-	close(fd);
-
-	printf("\n \n== > file closed");
-	return(0);
 }
