@@ -6,7 +6,7 @@
 /*   By: ssujaude <ssujaude@student.42>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:17:45 by ssujaude          #+#    #+#             */
-/*   Updated: 2025/12/24 22:04:08 by ssujaude         ###   ########.fr       */
+/*   Updated: 2025/12/24 23:56:23 by ssujaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ char *refine_line(char *old_stashed_data, char **full_line, int old_stash_len)
 		if(!terminator_point)
 		{
 			line_length = old_stash_len;
-			// *full_line = NULL;
 			*full_line = ft_strdup_len(old_stashed_data, line_length);
-			//new_stashed_data = ft_strdup_len(old_stashed_data, (old_stash_len - line_length + 1));
 			free(old_stashed_data);
 			new_stashed_data = NULL;
 			return (new_stashed_data);
