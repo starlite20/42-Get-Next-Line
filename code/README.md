@@ -11,6 +11,8 @@ Additionally, the code must be handle different buffer sizes efficiently and als
 
 For the bonus part, the function is enhanced to manage multiple file descriptors at the same time, keeping track of the reading state for each one independently. 
 
+---
+---
 ## Instructions
 
 ### Pre-requisite
@@ -58,10 +60,14 @@ Replace 42 with any buffer size you wish to test.
 Sample Main 
 Run the executable, by running <code>./a.out</code>
 
+---
+---
 ## Resources
  - man read
  -  Static Variables In C Programming Language (https://www.youtube.com/watch?v=MVeN3GDwjUg)
 
+---
+---
 
 ## Algorithm and Technical Choices 
 
@@ -89,4 +95,7 @@ The solution is built around a single state-preserving mechanism through static 
 	- The core line extraction logic remains identical, but the state preservation mechanism is adapted. Instead of a single static char *, the solution uses: 
 	```static char *stashed_data[MAX_FILES];```
   
-	- MAX_FILES has been defined as a constant in the header file. The file descriptor (fd) is used directly as an index into this array to store and retrieve the unique stashed_data for each file descriptor. 	
+	- MAX_FILES has been defined as a constant in the header file. The file descriptor (fd) is used directly as an index into this array to store and retrieve the unique stashed_data for each file descriptor. 
+
+---
+---
