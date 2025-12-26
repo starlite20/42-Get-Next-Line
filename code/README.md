@@ -65,6 +65,7 @@ Run the executable, by running <code>./a.out</code>
 ## Resources
  - man read
  -  Static Variables In C Programming Language (https://www.youtube.com/watch?v=MVeN3GDwjUg)
+ - Static Variables in C (https://www.geeksforgeeks.org/static-variables-in-c/)
 
 ---
 ---
