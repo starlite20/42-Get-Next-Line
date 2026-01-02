@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssujaude <ssujaude@student.42>             +#+  +:+       +#+        */
+/*   By: ssujaude <ssujaude@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 15:17:45 by ssujaude          #+#    #+#             */
-/*   Updated: 2025/12/26 17:55:37 by ssujaude         ###   ########.fr       */
+/*   Updated: 2026/01/02 18:56:33 by ssujaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

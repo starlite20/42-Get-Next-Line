@@ -6,7 +6,7 @@
 /*   By: ssujaude <ssujaude@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/25 01:23:21 by ssujaude          #+#    #+#             */
-/*   Updated: 2026/01/01 17:40:56 by ssujaude         ###   ########.fr       */
+/*   Updated: 2026/01/02 19:13:13 by ssujaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #  define BUFFER_SIZE 42
 # endif
 
-# include <fcntl.h>
 # include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
